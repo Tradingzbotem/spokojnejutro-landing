@@ -1,6 +1,8 @@
 // app/bright-future/page.tsx
 'use client';
 
+import Image from 'next/image';
+
 type InfoCardProps = {
   title: string;
   badge: string;
@@ -136,16 +138,22 @@ export default function BrightFutureLanding() {
             </p>
           </div>
 
-          {/* Right – visual / photo placeholder */}
+          {/* Right – visual / photo */}
           <div className="flex-1">
             <div className="relative mx-auto max-w-md">
-              <div className="flex h-56 items-center justify-center rounded-3xl border border-slate-200 bg-sky-50 px-6 text-sm text-slate-600">
-                Twój plan może wyglądać inaczej niż przeciętna emerytura w Polsce. 
-                Porozmawiajmy, jak ją poukładać krok po kroku.
+              <div className="relative h-56 w-full overflow-hidden rounded-3xl">
+                <Image
+                  src="/hero.jpg"
+                  alt="Rodzina planująca spokojną przyszłość finansową"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                  priority
+                />
               </div>
               <div className="absolute -bottom-5 -right-5 rounded-2xl bg-sky-700 px-4 py-3 text-xs font-semibold text-white shadow-lg md:text-sm">
                 Plan od{" "}
-                <span className="text-lime-300">XX zł / mies.</span> – dopasowany
+                <span className="text-lime-300">165 zł / mies.</span> – dopasowany
                 do Ciebie
               </div>
             </div>
