@@ -430,7 +430,7 @@ export default function BrightFutureLanding() {
               działającej od ponad 55 lat na rynku ogólnoeuropejskim, opieram się
               na sprawdzonych rozwiązaniach. Tłumaczę wszystko prostym językiem,
               bez sprzedażowego nacisku. Zależy mi, żebyś dokładnie rozumiał/a, na
-              co się decydujesz.
+              co się decydujesz.{/* deploy bump */}
             </p>
             <ul className="list-disc space-y-1 pl-5 text-sm text-slate-700">
               <li>
