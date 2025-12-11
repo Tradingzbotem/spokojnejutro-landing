@@ -139,15 +139,16 @@ export default function BrightFutureLanding() {
           </div>
 
           {/* Right – visual / photo */}
-          <div className="flex-1">
-            <div className="relative mx-auto max-w-md">
-              <div className="relative h-56 w-full overflow-hidden rounded-3xl">
+          <div className="w-full flex-1 md:w-1/2 flex justify-center md:justify-end">
+            <div className="relative mx-auto max-w-md w-full">
+              <div className="relative w-full overflow-hidden rounded-3xl">
                 <Image
                   src="/hero.jpg"
                   alt="Rodzina planująca spokojną przyszłość finansową"
-                  fill
+                  width={480}
+                  height={320}
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
+                  className="w-full h-auto max-w-[480px] object-cover"
                   priority
                 />
               </div>
