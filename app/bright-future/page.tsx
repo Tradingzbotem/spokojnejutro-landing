@@ -424,13 +424,10 @@ export default function BrightFutureLanding() {
               Julia Cynka – Reprezentant dla OVB
             </p>
             <p>
-              Nazywam się Julia Cynka i jako Reprezentant dla OVB pomagam klientom
-              poukładać temat przyszłej emerytury i zabezpieczenia rodziny.
-              Jako reprezentant dla międzynarodowej, renomowanej firmy OVB,
-              działającej od ponad 55 lat na rynku ogólnoeuropejskim, opieram się
-              na sprawdzonych rozwiązaniach. Tłumaczę wszystko prostym językiem,
-              bez sprzedażowego nacisku. Zależy mi, żebyś dokładnie rozumiał/a, na
-              co się decydujesz.
+              Nazywam się Julia Cynka i jestem reprezentantem firmy OVB. Moją działalnością wspieram klientów w uporządkowaniu kwestii przyszłej emerytury oraz zabezpieczenia rodziny. Pracuję w międzynarodowej, renomowanej firmie z branży finansowej, działającej od ponad 55 lat na rynku europejskim, dzięki czemu opieram swoje działania na sprawdzonych i bezpiecznych rozwiązaniach.
+            </p>
+            <p>
+              Wyjaśniam wszystko w prosty, zrozumiały sposób, bez sprzedażowego nacisku — zależy mi, abyś dokładnie wiedział/a, na co się decydujesz. W procesie podejmowania tak ważnych decyzji wyróżnia mnie empatia, uważność oraz pełne zrozumienie potrzeb moich klientów. Moim celem jest zapewnienie najwyższego poziomu satysfakcji i poczucia bezpieczeństwa.
             </p>
             <ul className="list-disc space-y-1 pl-5 text-sm text-slate-700">
               <li>
