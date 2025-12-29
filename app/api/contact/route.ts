@@ -61,7 +61,7 @@ ${message}
     await resend.emails.send({
       from: `Spokojne Jutro <${FROM_EMAIL}>`,
       to: [TO_EMAIL],
-      reply_to: email,
+      replyTo: email,
       subject,
       text,
       html,
