@@ -1,6 +1,7 @@
 // app/bright-future/page.tsx
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 
 type InfoCardProps = {
@@ -24,6 +25,73 @@ function InfoCard({ title, badge, text }: InfoCardProps) {
 }
 
 export default function BrightFutureLanding() {
+  // Stany dla pól formularza
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [preferredTime, setPreferredTime] = useState('');
+  const [message, setMessage] = useState('');
+  const [consent, setConsent] = useState(false);
+
+  // Stany techniczne
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Sprawdź zgodę
+    if (!consent) {
+      setErrorMessage('Zaznacz zgodę na kontakt, aby wysłać formularz');
+      setSuccessMessage('');
+      return;
+    }
+
+    // Wyczyść wcześniejsze komunikaty
+    setSuccessMessage('');
+    setErrorMessage('');
+
+    // Ustaw stan wysyłki
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          consent,
+          phone,
+          preferredTime,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSuccessMessage('Dziękuję, formularz został wysłany. Skontaktuję się z Tobą tak szybko, jak to możliwe.');
+        // Wyczyść pola formularza
+        setName('');
+        setPhone('');
+        setEmail('');
+        setPreferredTime('');
+        setMessage('');
+        setConsent(false);
+      } else {
+        setErrorMessage(data.error || 'Coś poszło nie tak. Spróbuj ponownie później.');
+      }
+    } catch (error) {
+      setErrorMessage('Coś poszło nie tak. Spróbuj ponownie później.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
       {/* TOP BAR / NAV */}
@@ -176,7 +244,7 @@ export default function BrightFutureLanding() {
               </p>
 
               <form 
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
                 className="mt-6 space-y-4 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-100"
               >
                 <div className="grid gap-4 md:grid-cols-2">
@@ -186,8 +254,11 @@ export default function BrightFutureLanding() {
                     </label>
                     <input
                       type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none ring-0 focus:border-sky-500"
                       placeholder="Jan Kowalski"
+                      required
                     />
                   </div>
                   <div>
@@ -196,6 +267,8 @@ export default function BrightFutureLanding() {
                     </label>
                     <input
                       type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-sky-500"
                       placeholder="+48 ..."
                     />
@@ -208,8 +281,11 @@ export default function BrightFutureLanding() {
                     </label>
                     <input
                       type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-sky-500"
                       placeholder="twoj@email.pl"
+                      required
                     />
                   </div>
                   <div>
@@ -218,6 +294,8 @@ export default function BrightFutureLanding() {
                     </label>
                     <input
                       type="text"
+                      value={preferredTime}
+                      onChange={(e) => setPreferredTime(e.target.value)}
                       className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-sky-500"
                       placeholder="np. 17:00–19:00"
                     />
@@ -228,15 +306,20 @@ export default function BrightFutureLanding() {
                     Twoje pytanie / oczekiwania
                   </label>
                   <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-sky-500"
                     rows={3}
                     placeholder="Napisz, co jest dla Ciebie najważniejsze (wysokość przyszłej emerytury, zabezpieczenie rodziny, kredyt itp.)"
+                    required
                   />
                 </div>
                 <div className="flex items-start gap-2">
                   <input
                     id="zgoda"
                     type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
                     className="mt-1 h-4 w-4 rounded border-slate-300 text-sky-700"
                   />
                   <label
@@ -251,10 +334,17 @@ export default function BrightFutureLanding() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-lime-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-lime-500"
+                  disabled={isSubmitting}
+                  className="w-full rounded-full bg-lime-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-lime-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Wyślij zgłoszenie
+                  {isSubmitting ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}
                 </button>
+                {successMessage && (
+                  <p className="text-sm text-green-600">{successMessage}</p>
+                )}
+                {errorMessage && (
+                  <p className="text-sm text-red-600">{errorMessage}</p>
+                )}
               </form>
             </div>
 
