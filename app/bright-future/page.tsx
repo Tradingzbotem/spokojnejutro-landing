@@ -94,6 +94,9 @@ export default function BrightFutureLanding() {
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
+      <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 99999, padding: '8px 10px', background: '#ff0', color: '#000', fontWeight: 700 }}>
+        PREVIEW MARKER: 8d72e0b
+      </div>
       {/* TOP BAR / NAV */}
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-8 px-4 py-4">
