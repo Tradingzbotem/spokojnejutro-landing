@@ -41,52 +41,74 @@ export default function BrightFutureLanding() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Sprawdź zgodę
+    // twarda walidacja zgody
     if (!consent) {
-      setErrorMessage('Zaznacz zgodę na kontakt, aby wysłać formularz');
-      setSuccessMessage('');
+      setErrorMessage("Zaznacz zgodę na kontakt, aby wysłać formularz");
+      setSuccessMessage("");
       return;
     }
 
-    // Wyczyść wcześniejsze komunikaty
-    setSuccessMessage('');
-    setErrorMessage('');
-
-    // Ustaw stan wysyłki
+    setSuccessMessage("");
+    setErrorMessage("");
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-          consent,
-          phone,
-          preferredTime,
-        }),
+      const payload = {
+        name,
+        email,
+        message,
+        consent,
+        phone,
+        preferredTime,
+      };
+
+      // ważne: absolutny URL na ten sam origin (eliminuje problemy z basePath / www / rewrites)
+      const url =
+        typeof window !== "undefined"
+          ? new URL("/api/contact", window.location.origin).toString()
+          : "/api/contact";
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const contentType = response.headers.get("content-type") || "";
+      let data: any = null;
+      let rawText: string | null = null;
 
-      if (response.ok) {
-        setSuccessMessage('Dziękuję, formularz został wysłany. Skontaktuję się z Tobą tak szybko, jak to możliwe.');
-        // Wyczyść pola formularza
-        setName('');
-        setPhone('');
-        setEmail('');
-        setPreferredTime('');
-        setMessage('');
-        setConsent(false);
+      // bezpieczne parsowanie
+      if (contentType.includes("application/json")) {
+        data = await response.json().catch(() => null);
       } else {
-        setErrorMessage(data.error || 'Coś poszło nie tak. Spróbuj ponownie później.');
+        rawText = await response.text().catch(() => null);
       }
-    } catch (error) {
-      setErrorMessage('Coś poszło nie tak. Spróbuj ponownie później.');
+
+      if (!response.ok) {
+        const serverMsg =
+          (data && (data.error || data.message)) ||
+          rawText ||
+          `Błąd wysyłki (HTTP ${response.status})`;
+        setErrorMessage(serverMsg);
+        return;
+      }
+
+      setSuccessMessage(
+        "Dziękuję, formularz został wysłany. Skontaktuję się z Tobą tak szybko, jak to możliwe."
+      );
+
+      // reset
+      setName("");
+      setPhone("");
+      setEmail("");
+      setPreferredTime("");
+      setMessage("");
+      setConsent(false);
+    } catch (err: any) {
+      setErrorMessage(
+        err?.message || "Coś poszło nie tak. Spróbuj ponownie później."
+      );
     } finally {
       setIsSubmitting(false);
     }
