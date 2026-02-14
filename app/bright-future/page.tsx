@@ -354,7 +354,7 @@ export default function BrightFutureLanding() {
                   Jak wygląda kontakt?
                 </h3>
                 <ul className="mt-3 list-disc space-y-1 pl-4 text-xs text-slate-700 md:text-sm">
-                  <li>Najpierw krótka rozmowa, żeby poznać Twoją sytuację.</li>
+                  <li>Najpierw krótka rozmowa w formie analizy APK. Żeby bliżej poznać twoje oczekiwania, potrzeby oraz możliwości.</li>
                   <li>Potem przedstawiam 2–3 rozwiązania i tłumaczę różnice.</li>
                   <li>Decyzję podejmujesz na spokojnie, bez presji.</li>
                 </ul>
