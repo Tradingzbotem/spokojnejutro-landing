@@ -94,9 +94,6 @@ export default function BrightFutureLanding() {
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
-      <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 99999, padding: '8px 10px', background: '#ff0', color: '#000', fontWeight: 700 }}>
-        PREVIEW MARKER: 8d72e0b
-      </div>
       {/* TOP BAR / NAV */}
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-8 px-4 py-4">
@@ -513,7 +510,7 @@ export default function BrightFutureLanding() {
             <div className="h-40 w-40 overflow-hidden rounded-full border border-slate-200 bg-slate-100 md:h-48 md:w-48">
               <img
                 src="/julia-cynka.jpeg"
-                alt="Julia Cynka – Reprezentant dla OVB"
+                alt=""
                 className="h-full w-full object-cover"
               />
             </div>
@@ -522,11 +519,8 @@ export default function BrightFutureLanding() {
             <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
               O mnie
             </h2>
-            <p className="font-semibold text-slate-900">
-              Julia Cynka – Reprezentant dla OVB
-            </p>
             <p>
-              Nazywam się Julia Cynka i jestem reprezentantem firmy OVB. Moją działalnością wspieram klientów w uporządkowaniu kwestii przyszłej emerytury oraz zabezpieczenia rodziny. Pracuję w międzynarodowej, renomowanej firmie z branży finansowej, działającej od ponad 55 lat na rynku europejskim, dzięki czemu opieram swoje działania na sprawdzonych i bezpiecznych rozwiązaniach.
+              Nazywam się Julia Cynka i jestem licencjonowanym doradcą biznesowo-majątkowym. Moją działalnością wspieram klientów w uporządkowaniu kwestii przyszłej emerytury oraz zabezpieczenia rodziny. Pracuję w międzynarodowej, renomowanej firmie z branży finansowej, działającej od ponad 55 lat na rynku europejskim, dzięki czemu opieram swoje działania na sprawdzonych i bezpiecznych rozwiązaniach.
             </p>
             <p>
               Wyjaśniam wszystko w prosty, zrozumiały sposób, bez sprzedażowego nacisku — zależy mi, abyś dokładnie wiedział/a, na co się decydujesz. W procesie podejmowania tak ważnych decyzji wyróżnia mnie empatia, uważność oraz pełne zrozumienie potrzeb moich klientów. Moim celem jest zapewnienie najwyższego poziomu satysfakcji i poczucia bezpieczeństwa.
@@ -552,7 +546,7 @@ export default function BrightFutureLanding() {
                   E-mail
                 </p>
                 <p className="text-sm font-semibold text-sky-700">
-                  julia.cynka@ovb.com.pl
+                  kontakt@spokojnejutro.com
                 </p>
               </div>
               <div>
